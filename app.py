@@ -69,8 +69,7 @@ def load_data():
 
 def main():
     # Sidebar navigation
-    st.sidebar.title("Navigation")
-    st.sidebar.markdown("---")
+
     
     # Add logo or branding
     st.sidebar.markdown("""
@@ -84,7 +83,7 @@ def main():
     page = st.sidebar.radio(
         "Go to",
         ["🏠 Dataset Overview", "📈 Participation Trends", "💬 Feedback Analysis", "🖼 Image Processing"],
-        index=0
+        index=0  # Set index to 0 to make Dataset Overview the default page
     )
     
     # Load data
@@ -92,12 +91,7 @@ def main():
     
     # Add footer with contact info
     st.sidebar.markdown("---")
-    # st.sidebar.markdown("""
-    #     <div style='text-align: center; margin-top: 2rem;'>
-    #         <p style='color: #666;'>Contact Support</p>
-    #         <p style='font-size: 0.8rem;'>support@posterpresentation.com</p>
-    #     </div>
-    # """, unsafe_allow_html=True)
+    
     
     # Main content area
     if page == "🏠 Dataset Overview":
@@ -123,7 +117,7 @@ def main():
         
     elif page == "📈 Participation Trends":
         st.title("📊 Analytics Dashboard")
-        
+       
         
         # Initialize and display dashboard
         dashboard = Dashboard(df)
