@@ -66,7 +66,8 @@ def load_data():
 
 def main():
     # Sidebar navigation
-    
+    st.sidebar.title("Navigation")
+    st.sidebar.markdown("---")
     
     # Add logo or branding
     st.sidebar.markdown("""
@@ -76,10 +77,10 @@ def main():
         </div>
     """, unsafe_allow_html=True)
     
-    # Navigation options
+    # Navigation options with emojis
     page = st.sidebar.radio(
-        "Select Section",
-        ["Dashboard", "Text Analysis", "Image Gallery"],
+        "Go to",
+        ["🏠 Dataset Overview", "📈 Participation Trends", "💬 Feedback Analysis", "🖼 Image Processing"],
         index=0
     )
     
@@ -88,48 +89,54 @@ def main():
     
     # Add footer with contact info
     st.sidebar.markdown("---")
-    st.sidebar.markdown("""
-        <div style='text-align: center; margin-top: 2rem;'>
-            <p style='color: #666;'>Contact Support</p>
-            <p style='font-size: 0.8rem;'>support@posterpresentation.com</p>
-        </div>
-    """, unsafe_allow_html=True)
+    # st.sidebar.markdown("""
+    #     <div style='text-align: center; margin-top: 2rem;'>
+    #         <p style='color: #666;'>Contact Support</p>
+    #         <p style='font-size: 0.8rem;'>support@posterpresentation.com</p>
+    #     </div>
+    # """, unsafe_allow_html=True)
     
     # Main content area
-    if page == "Dashboard":
+    if page == "🏠 Dataset Overview":
+        st.title("📋 Dataset View")
+        
+        
+        # Display dataset information
+        st.subheader("Dataset Information")
+        st.write(f"Total Rows: {len(df)}")
+        st.write(f"Total Columns: {len(df.columns)}")
+        st.write(f"Columns: {', '.join(df.columns)}")
+        
+        # Display first 20 rows
+        st.subheader("First 20 Rows")
+        st.dataframe(df.head(20), use_container_width=True)
+        
+        # Display data types
+        st.subheader("Data Types")
+        st.dataframe(pd.DataFrame({
+            'Column': df.columns,
+            'Data Type': df.dtypes
+        }), use_container_width=True)
+        
+    elif page == "📈 Participation Trends":
         st.title("📊 Analytics Dashboard")
-        st.markdown("""
-            <div style='background-color: #000000; padding: 1rem; border-radius: 4px; margin-bottom: 2rem;'>
-                <p>Welcome to the National Poster Presentation Analytics Dashboard. 
-                Use the filters below to explore participation patterns and trends.</p>
-            </div>
-        """, unsafe_allow_html=True)
+        
         
         # Initialize and display dashboard
         dashboard = Dashboard(df)
         dashboard.display()
         
-    elif page == "Text Analysis":
+    elif page == "💬 Feedback Analysis":
         st.title("📝 Feedback Analysis")
-        st.markdown("""
-            <div style='background-color: #000000; padding: 1rem; border-radius: 4px; margin-bottom: 2rem;'>
-                <p>Analyze participant feedback using advanced text processing techniques. 
-                Generate word clouds and explore feedback patterns.</p>
-            </div>
-        """, unsafe_allow_html=True)
+        
         
         # Initialize and display text analysis
         text_analyzer = TextAnalysis(df)
         text_analyzer.display()
         
-    else:  # Image Gallery
+    else:  # Image Processing
         st.title("🖼️ Image Gallery")
-        st.markdown("""
-            <div style='background-color: #000000; padding: 1rem; border-radius: 4px; margin-bottom: 2rem;'>
-                <p>Browse and process event-related images. Apply filters, add watermarks, 
-                and download processed images.</p>
-            </div>
-        """, unsafe_allow_html=True)
+        
         
         # Initialize and display image processor
         image_processor = ImageProcessor(df)
